@@ -20,7 +20,7 @@ package com.meritamerica.assignment2;
 			return this.accountNumber;
 		}
 		
-		public double getBalance() {
+		public double getBalance() { 
 			return this.currentBalance;
 		}
 		
@@ -80,4 +80,3 @@ package com.meritamerica.assignment2;
 	}
 
 
-}

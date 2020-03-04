@@ -20,13 +20,12 @@ public class AccountHolder {
 	private CheckingAccount checking;
 	private SavingsAccount savings;
 	private CheckingAccount[] checkingAccountArray;
-	private SavingsAccount[] savingsAccountArray; 
+	private SavingsAccount[] savingsAccountArray;
 	private CDAccount[] cdAccountArray;
 	private CDAccount cdAccount;
 	private int numOfCheckingAccounts = 0;
 	private int numOfSavingsAccounts = 0;
 	private int numOfCDAccounts = 0;
-
 
 	public AccountHolder(String firstName, String middleName, String lastName, String ssn) {
 		// setting the attributes to the value from the constructor parameters
@@ -39,8 +38,6 @@ public class AccountHolder {
 		this.cdAccountArray = new CDAccount[1];
 	}
 
-	
-	
 	public CheckingAccount addCheckingAccount(double openingBalance) {
 		CheckingAccount checkingAcc = new CheckingAccount(openingBalance);
 		return checkingAcc;
@@ -49,149 +46,169 @@ public class AccountHolder {
 	public CheckingAccount addCheckingAccout(CheckingAccount checkingAccount) {
 		numOfCheckingAccounts++;
 		CheckingAccount[] newCheckingAccountArray = new CheckingAccount[numOfCheckingAccounts];
-		
+
 		if (checkingAccountArray == null) {
 			checkingAccountArray = new CheckingAccount[1];
 			checkingAccountArray[0] = checkingAccount;
 			return checkingAccount;
 		}
-			
+
 		for (int i = 0; i < checkingAccountArray.length; i++) {
 			newCheckingAccountArray[i] = checkingAccountArray[i];
 		}
-		
-		newCheckingAccountArray[newCheckingAccountArray.length - 1 ] = checkingAccount;
+
+		newCheckingAccountArray[newCheckingAccountArray.length - 1] = checkingAccount;
 		checkingAccountArray = newCheckingAccountArray;
 		return checkingAccount;
 	}
 
 	public SavingsAccount addSavingsAccount(double openingBalance) {
 		SavingsAccount savingsAcc = new SavingsAccount(openingBalance);
-		return savingsAcc;	
+		return savingsAcc;
 	}
 
 	public SavingsAccount addSavingsAccount(SavingsAccount savingsAccount) {
 		numOfSavingsAccounts++;
 		SavingsAccount[] newSavingsAccountArray = new SavingsAccount[numOfSavingsAccounts];
-		
+
 		if (savingsAccountArray == null) {
 			savingsAccountArray = new SavingsAccount[1];
 			savingsAccountArray[0] = savingsAccount;
 			return savingsAccount;
 		}
-		
+
 		for (int i = 0; i < savingsAccountArray.length; i++) {
 			newSavingsAccountArray[i] = savingsAccountArray[i];
 		}
-		
+
 		newSavingsAccountArray[newSavingsAccountArray.length - 1] = savingsAccount;
 		savingsAccountArray = newSavingsAccountArray;
 		return savingsAccount;
 
 	}
 
-	public CDAccount addCDAccount(CDOffering offering, double openingBalance) {
-		if (offering  == null) {
+	public void CDAccount addCDAccount(CDOffering offering, double openingBalance) {
+		if (offering == null) {
 			System.out.println("Unalbe to find CDOffering. ");
+			return;
+		}
+		CDAccount newCDAccount = new CDAccount(openingBalance, offering.getInterestRate(), offering.getTerm());
+		addCDAccount(newCDAccount);
+
+	}
+
+	public CDAccount addCDAccount(CDAccount cdAccount) {
+		numOfCDAccounts++;
+		CDAccount[] newCDAccountArray = new CDAccount[numOfCDAccounts];
+
+		if (cdAccount == null) {
+			newCDAccountArray = new CDAccount[1];
+			newCDAccountArray[0] = cdAccount;
 			return cdAccount;
 		}
-			
-			
+
+		for (int i = 0; i < cdAccountArray.length; i++) {
+			newCDAccountArray[i] = cdAccountArray[i];
+
 		}
 
-//	public CDAccount addCDAccount(CDAccount cdAccount) {
-//		cdAccount.add(cdAccount);
-//
-//	}
-//
-//	public int getNumberOfCDAccounts() {
-//
-//	}
-//
-//	public double getCDBalance() {
-//		return this.cdAccount;
-//	}
-//
+		newCDAccountArray[newCDAccountArray.length - 1] = cdAccount;
+		cdAccountArray = newCDAccountArray;
+		return cdAccount;
+	}
+
+
 	public double getCombinedBalance() { 
 		return checking.getBalance() + savings.getBalance(); ?????
 	}
+
+	// create getters and setters for retrieving and updating the value of the
+	// variables
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstname(String name) {
+		this.firstName = name;
+
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String midName) {
+		this.middleName = midName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lstName) {
+		this.lastName = lstName;
+	}
+
+	public String getSSN() {
+		return ssn;
+	}
+
+	public void setSSN(String SSN) {
+		this.ssn = SSN;
+
+	}
+
+	public CheckingAccount getCheckingAccount() {
+		return this.checking;
+	}
+
+	public CheckingAccount[] getCheckingAccounts() {
+		return this.checkingAccountArray;
+	}
+
+	public int getNumberOfCheckingAccounts() {
+		return this.numOfCheckingAccounts;
+	}
+
+	public SavingsAccount getSavingsAccount() {
+		return this.savings;
+	}
+
+	public SavingsAccount[] getSavingsAccounts() {
+		return this.savingsAccountArray;
+	}
 	
-	// create getters and setters for retrieving and updating the value of the variables
-		public String getFirstName() {
-			return firstName;
-		}
+	public CDAccount[] getCDAccounts() {
+		return this.cdAccountArray;
+	}
+	
+	public int getNumberOfCDAccounts() {
+		return this.numOfCDAccounts;
 
-		public void setFirstname(String name) {
-			this.firstName = name;
+	}
 
-		}
+	public double getCDBalance() {
+		return cdAccount.getBalance();
+	}
 
-		public String getMiddleName() {
-			return middleName;
-		}
+	public int getNumberOfSavingsAccounts() {
+		return this.numOfSavingsAccounts;
 
-		public void setMiddleName(String midName) {
-			this.middleName = midName;
-		}
+	}	
 
-		public String getLastName() {
-			return this.lastName;
-		}
+	public double getCheckingBalance() {
+		return checking.getBalance();
+	}
 
-		public void setLastName(String lstName) {
-			this.lastName = lstName;
-		}
-
-		public String getSSN() {
-			return ssn;
-		}
-
-		public void setSSN(String SSN) {
-			this.ssn = SSN;
-
-		}
-
-		public CheckingAccount getCheckingAccount() {
-			return this.checking;
-		}
-		
-		public CheckingAccount[] getCheckingAccounts() {
-			return this.checkingAccountArray;
-		}
-		
-		public int getNumberOfCheckingAccounts() {
-			return numOfCheckingAccounts;
-		}
-		
-		public SavingsAccount getSavingsAccount() {
-			return this.savings;
-		}
-		
-		public SavingsAccount[] getSavingsAccounts() {
-			return this.savingsAccountArray;
-		}
-		
-		public int getNumberOfSavingsAccounts() {
-			return numOfSavingsAccounts;
-			
-		}
-		
-		public double getCheckingBalance() {
-			return checking.getBalance();
-		}
-		
-		public double getSavingsBalance() {
-			return savings.getBalance() ;
-		}
-
+	public double getSavingsBalance() {
+		return savings.getBalance();
+	}
 
 	@Override
 	public String toString() {
 		return ("Name: " + this.firstName + " " + this.middleName + " " + this.lastName + "\nSSN: " + this.ssn + "\n"
-				+ checking.toString() + "\n" + savings.toString() // new changes
-		);
+				+ checking.toString() + "\n" + savings.toString());
 
 	}
 
 }
-

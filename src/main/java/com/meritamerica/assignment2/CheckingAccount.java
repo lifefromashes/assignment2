@@ -7,18 +7,18 @@ package com.meritamerica.assignment2;
 		
 		private double checkingBalanceThreeYears;
 		private double currentBalance;
-		private double interestRate = .0001;
+		private  double interestRate = .0001;
 		private long accountNumber;
 
 		//Constructor to initialize the objects
 		public CheckingAccount( double openingBalance) {
 			this.currentBalance = openingBalance;
-			this.accountNumber = setAccountNumber();
+			this.accountNumber = MeritBank.getNextAccountNumber();
 		}
 		
-		public long setAccountNumber() {
-			this.accountNumber = (long)((Math.random() * Math.pow(10, 7)));
-		}
+//		public long setAccountNumber() {
+//			this.accountNumber = (long)((Math.random() * Math.pow(10, 7)));
+//		}
 		
 		public long getAccountNumber() {
 			return this.accountNumber;
@@ -30,7 +30,7 @@ package com.meritamerica.assignment2;
 		
 		
 		public double getInterestRate() {
-			return this.interestRate;
+			return interestRate;
 		}
 		
 		public void setInterestRate(double interestRate, int years) {
@@ -100,4 +100,3 @@ package com.meritamerica.assignment2;
 		
 		
 
-}
