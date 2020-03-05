@@ -17,8 +17,6 @@ public class AccountHolder {
 	private String middleName;
 	private String lastName;
 	private String ssn;
-	private CheckingAccount checking;
-	private SavingsAccount savings;
 	private CheckingAccount[] checkingAccountArray;
 	private SavingsAccount[] savingsAccountArray;
 	private CDAccount[] cdAccountArray;
@@ -38,12 +36,16 @@ public class AccountHolder {
 		this.cdAccountArray = new CDAccount[1];
 	}
 
-	public CheckingAccount addCheckingAccount(double openingBalance) {
+	public  CheckingAccount addCheckingAccount(double openingBalance) {
 		CheckingAccount checkingAcc = new CheckingAccount(openingBalance);
 		return checkingAcc;
+		
 	}
 
-	public CheckingAccount addCheckingAccout(CheckingAccount checkingAccount) {
+	public CheckingAccount addCheckingAccount(CheckingAccount checkingAccount) {
+		if (getCheckingBalance() + getSavingsBalance() > 25000) {
+			System.out.println("Unable to create a new account, balance is too high.");
+		}
 		numOfCheckingAccounts++;
 		CheckingAccount[] newCheckingAccountArray = new CheckingAccount[numOfCheckingAccounts];
 
@@ -68,6 +70,10 @@ public class AccountHolder {
 	}
 
 	public SavingsAccount addSavingsAccount(SavingsAccount savingsAccount) {
+		if (getCheckingBalance() + getSavingsBalance() > 25000) {
+			System.out.println("Unable to create a new account, balance is too high.");
+		}
+		
 		numOfSavingsAccounts++;
 		SavingsAccount[] newSavingsAccountArray = new SavingsAccount[numOfSavingsAccounts];
 
@@ -87,13 +93,14 @@ public class AccountHolder {
 
 	}
 
-	public void CDAccount addCDAccount(CDOffering offering, double openingBalance) {
+	public  CDAccount addCDAccount(CDOffering offering, double openingBalance) {
 		if (offering == null) {
 			System.out.println("Unalbe to find CDOffering. ");
-			return;
+			return cdAccount;
 		}
-		CDAccount newCDAccount = new CDAccount(openingBalance, offering.getInterestRate(), offering.getTerm());
+		CDAccount newCDAccount = new CDAccount(offering, cdAccount.getBalance());
 		addCDAccount(newCDAccount);
+		return cdAccount;
 
 	}
 
@@ -116,12 +123,7 @@ public class AccountHolder {
 		cdAccountArray = newCDAccountArray;
 		return cdAccount;
 	}
-
-
-	public double getCombinedBalance() { 
-		return checking.getBalance() + savings.getBalance(); ?????
-	}
-
+	
 	// create getters and setters for retrieving and updating the value of the
 	// variables
 	public String getFirstName() {
@@ -158,9 +160,9 @@ public class AccountHolder {
 
 	}
 
-	public CheckingAccount getCheckingAccount() {
-		return this.checking;
-	}
+//	public CheckingAccount getCheckingAccount() {
+//		return this.checking;
+//	}
 
 	public CheckingAccount[] getCheckingAccounts() {
 		return this.checkingAccountArray;
@@ -170,9 +172,9 @@ public class AccountHolder {
 		return this.numOfCheckingAccounts;
 	}
 
-	public SavingsAccount getSavingsAccount() {
-		return this.savings;
-	}
+//	public SavingsAccount getSavingsAccount() {
+//		return this.savings;
+//	}
 
 	public SavingsAccount[] getSavingsAccounts() {
 		return this.savingsAccountArray;
@@ -196,18 +198,48 @@ public class AccountHolder {
 
 	}	
 
-	public double getCheckingBalance() {
-		return checking.getBalance();
+	public double getCheckingBalance() { // iterate over array of checking accounts to find the sum of the array account
+		double chkAccSums = 0;
+		
+		for (int i = 0; i < this.numOfCheckingAccounts; i++) {
+			chkAccSums += this.checkingAccountArray[i].getBalance();
+		}
+		return chkAccSums;
 	}
 
 	public double getSavingsBalance() {
-		return savings.getBalance();
+		double savAccSums = 0;
+		
+		for (int i = 0; i  < this.savingsAccountArray[i].getBalance(); i++) {
+			savAccSums += this.savingsAccountArray[i].getBalance();
+		}
+		
+		return savAccSums;
+				
+	}
+	
+	public double getCDAccountsBalance() {
+		double cdAccSums = 0;
+		
+		for(int i = 0; i < this.cdAccountArray[i].getBalance(); i++) {
+			cdAccSums += this.cdAccountArray[i].getBalance();
+			
+		}
+		return cdAccSums;
+		
+	}
+	
+	public double getCombinedBalance() {
+		double accSums = 0;
+		accSums += getCheckingBalance();
+		accSums += getSavingsBalance();
+		return accSums;
 	}
 
 	@Override
 	public String toString() {
 		return ("Name: " + this.firstName + " " + this.middleName + " " + this.lastName + "\nSSN: " + this.ssn + "\n"
-				+ checking.toString() + "\n" + savings.toString());
+				+ getCheckingAccounts().toString() + "\n" + getSavingsAccounts().toString());
 
 	}
 

@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MeritBank {
-	private static AccountHolder[] accountHolders; //scope/type/name //static operates before the object layer
+	private static AccountHolder[] accountHolders = new AccountHolder[100];
 	private static int accountHolderIndex = 0;
 	private static CDOffering[] cdOfferings;
 	private static int cdOfferingIndex;
-	private static long nextAccountNumber = (long)(Math.random() * Math.pow(10, 7));
+	private static long nextAccountNumber = 1234567;
 	private double bestOffering;
 	
 	public MeritBank() {
@@ -32,14 +32,14 @@ public class MeritBank {
 	
 	public static CDOffering getBestCDOffering(double depositAmount) {
 		double bestOffering = 0;
-		int bestIndex = 0;
+		int bestIndex = -1;
 		
 		if(cdOfferings == null) {
 			return null;
 		}
 		
 		for (int i = 0; i < cdOfferings.length; i++) {
-			if(cdOfferings[i].getInterestRate() > bestIndex) {
+			if(cdOfferings[i].getInterestRate() > bestOffering) {
 				bestOffering = cdOfferings[i].getInterestRate();
 				bestIndex = i;
 			}
@@ -58,7 +58,7 @@ public class MeritBank {
 		}
 		
 		for (int i = 0; i < cdOfferings.length; i ++) {
-			if(cdOfferings[i].getInterestRate() > secondBestOffering && !cdOfferings[i] .equals(bestOffering)) {
+			if(cdOfferings[i].getInterestRate() > secondBestOffering && !bestOffering.equals(cdOfferings[i])) {
 				secondBestOffering = cdOfferings[i].getInterestRate();
 				secondBestIndex = i;
 			}
@@ -66,11 +66,19 @@ public class MeritBank {
 		
 		return cdOfferings[secondBestIndex];
 		
-	}
+	} 
 	
 	public static void clearCDOfferings() {
-		cdOfferings = null; //to clear CDOfferings
+		cdOfferings = null;//to clear 
 		
+	}
+	
+	public static void setCDOfferings(CDOffering[] offerings) {
+		int cdOfferingArraySize = offerings.length;
+		cdOfferings = new CDOffering[cdOfferingArraySize];
+		for (int i = 0; i < cdOfferingArraySize; i++) {
+			cdOfferings[i] = offerings[i];
+		}
 	}
 	
 	public static long getNextAccountNumber() {
@@ -96,7 +104,7 @@ public class MeritBank {
 				sum += savAccountBalance.getBalance();
 			}
 			
-			for(CDAccount account : acctHolder.getCDAccounts()) {
+			for(CDAccount account : acctHolder.getCDAccounts()) { //Try/catch here??
 				sum += account.getBalance();
 			}
 			

@@ -8,12 +8,20 @@ public class CDAccount {
 	private int term;
 	private long accountNumber;
 	private Date startDate;
+	private double presentValue;
 
 	public CDAccount(CDOffering offering, double openingBalance) {
 		this.currentBalance = openingBalance;
-		this.interestRate = offering.getInterestRate();
+		this.interestRate = interestRate;
 		this.term = term;
+		this.presentValue = presentValue;
 
+	}
+	
+	public CDAccount(CDOffering offering, double openingBalance, int term) {
+		this.currentBalance = openingBalance;
+		this.interestRate = offering.getInterestRate();
+		this.term = offering.getTerm();
 	}
 
 	public double getBalance() {
@@ -30,17 +38,18 @@ public class CDAccount {
 	}
 
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 
 	}
 	
 	public long getAccountNumber() {
-		return accountNumber;
+		return this.accountNumber;
 	}
 	
 	public double futureValue() {
-		return MeritBank.futureValue(presentValue, interestRate, term);
-		
+		double futureValue = (Math.pow(1 + this.interestRate, this.term));
+		futureValue *= currentBalance;
+		return futureValue;
 		
 	}
 
