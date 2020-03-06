@@ -33,7 +33,6 @@ public class AccountHolder {
 		
 		this.checkingAccountIndex = 0;
 		this.checkingAccounts = new CheckingAccount[1];
-		//this.checkingAccounts[0] = new CheckingAccount(checkingAccountOpeningBalance);
 		this.savingsAccountIndex = 0;
 		this.savingsAccounts = new SavingsAccount[1];
 		this.cdAccountIndex = 0;
@@ -72,6 +71,7 @@ public class AccountHolder {
 		if(getCheckingBalance() + getSavingsBalance() + savingsAccount.getBalance() >= 250000 ) {
 			System.out.println("Unable to create account. Balance too high.");
 			return;
+			
 		}
 		 int currentArrayLimit = this.savingsAccountIndex;
 		 SavingsAccount[] temp = new SavingsAccount[currentArrayLimit + 1];
@@ -89,10 +89,6 @@ public class AccountHolder {
 		CDAccount tempAccount = new CDAccount(offering, openingBalance);
 		addCDAccount(tempAccount);
 		
-//		if (offering == null) {
-//			System.out.println("Unable to find CDOffering. ");
-//			return;
-//		}
 	}
 		
 		public void addCDAccount(CDAccount cdAccount) {
@@ -220,10 +216,14 @@ public class AccountHolder {
 		}
 		double cdAccSums = 0;
 		
-		for(int i = 0; i < this.cdAccounts[i].getBalance(); i++) {
+		for (int i = 0; i < this.cdAccounts.length; i++) {
 			cdAccSums += this.cdAccounts[i].getBalance();
-			
 		}
+		
+//		for(int i = 0; i < this.cdAccounts[i].getBalance(); i++) {
+//			cdAccSums += this.cdAccounts[i].getBalance();
+//			
+//		}
 		return cdAccSums;
 		
 	}
