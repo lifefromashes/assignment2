@@ -107,7 +107,7 @@ public class MeritBank {
 				try {
 				sum += account.getBalance();
 				} catch (NullPointerException e) {
-					System.out.println("Handled null pointr in MeritBank.java");
+					System.out.println("Handled null pointer.");
 				}
 			}
 			
