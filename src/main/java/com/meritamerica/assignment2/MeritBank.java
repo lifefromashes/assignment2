@@ -1,20 +1,19 @@
 package com.meritamerica.assignment2;
 
-import java.util.Arrays;
-import java.util.Random;
-
 public class MeritBank {
 	private static AccountHolder[] accountHolders = new AccountHolder[100];
 	private static int accountHolderIndex = 0;
-	private static CDOffering[] cdOfferings;
-	private static int cdOfferingIndex;
+	private static CDOffering[] cdOfferings = new CDOffering[100];
 	private static long nextAccountNumber = 1234567;
-	private double bestOffering;
 	
-	public MeritBank() {
-	
-		
-	}
+//	
+//	public MeritBank() {
+//		this.accountHolders = new AccountHolder[100];
+//		this.cdOfferings = new CDOffering[100];
+//	
+//		this.nextAccountNumber = 1234567;
+//		
+//	}
 	
 	public static void addAccountHolder(AccountHolder accountHolder) {
 		accountHolders[accountHolderIndex] = accountHolder;
@@ -31,16 +30,16 @@ public class MeritBank {
 	}
 	
 	public static CDOffering getBestCDOffering(double depositAmount) {
-		double bestOffering = 0;
-		int bestIndex = -1;
-		
 		if(cdOfferings == null) {
 			return null;
 		}
 		
+		double bestValue = 0;
+		int bestIndex = -1;
+		
 		for (int i = 0; i < cdOfferings.length; i++) {
-			if(cdOfferings[i].getInterestRate() > bestOffering) {
-				bestOffering = cdOfferings[i].getInterestRate();
+			if(cdOfferings[i].getInterestRate() > bestValue) {
+				bestValue = cdOfferings[i].getInterestRate();
 				bestIndex = i;
 			}
 		}
@@ -49,17 +48,17 @@ public class MeritBank {
 	}
 	
 	public static CDOffering getSecondBestCDOffering(double depositAmount) {
-		double secondBestOffering = 0;
-		int secondBestIndex = -1;
-		CDOffering bestOffering = getBestCDOffering(depositAmount);
-		
-		if (cdOfferings == null) {
+		if(cdOfferings == null) {
 			return null;
 		}
+		CDOffering best = getBestCDOffering(depositAmount);
+		
+		double secondBestValue = 0;
+		int secondBestIndex = -1;		
 		
 		for (int i = 0; i < cdOfferings.length; i ++) {
-			if(cdOfferings[i].getInterestRate() > secondBestOffering && !bestOffering.equals(cdOfferings[i])) {
-				secondBestOffering = cdOfferings[i].getInterestRate();
+			if(cdOfferings[i].getInterestRate() > secondBestValue && !best.equals(cdOfferings[i])) {
+				secondBestValue = cdOfferings[i].getInterestRate();
 				secondBestIndex = i;
 			}
 		}
@@ -69,7 +68,7 @@ public class MeritBank {
 	} 
 	
 	public static void clearCDOfferings() {
-		cdOfferings = null;//to clear 
+		cdOfferings = null;     //to clear 
 		
 	}
 	
@@ -105,7 +104,11 @@ public class MeritBank {
 			}
 			
 			for(CDAccount account : acctHolder.getCDAccounts()) { //Try/catch here??
+				try {
 				sum += account.getBalance();
+				} catch (NullPointerException e) {
+					System.out.println("Handled null pointr in MeritBank.java");
+				}
 			}
 			
 		}

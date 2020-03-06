@@ -19,8 +19,32 @@ public class MeritAmericaBankApp {
 		ah1.addSavingsAccount(50000);
 		ah1.addCheckingAccount(50000);
 		ah1.addSavingsAccount(500000);
-		
+		ah1.addCheckingAccount(5000);
+		ah1.addSavingsAccount(50000);
 		//verify last two not created
+		
+		ah1.addCDAccount((MeritBank.getBestCDOffering(100)), 100);
+		MeritBank.addAccountHolder(ah1);
+		
+		String s = MeritBank.getAccountHolders()[0].toString();
+		System.out.println(s);
+		
+		
+		AccountHolder ah2 = new AccountHolder("Michael", "Gary", "Scott", "9841203600");
+		ah2.addCDAccount(MeritBank.getSecondBestCDOffering(100), 100);
+		MeritBank.addAccountHolder(ah2);
+		
+		MeritBank.clearCDOfferings();
+		
+		AccountHolder ah3 = new AccountHolder("Dwight", "K", "Schrute", "1248520199");
+		ah3.addCDAccount(MeritBank.getSecondBestCDOffering(100), 100); //will be rejected
+		MeritBank.addAccountHolder(ah3);
+		
+		double total = ah1.getCombinedBalance();
+		System.out.println(total);
+		
+		
+		
 		
 		
 		

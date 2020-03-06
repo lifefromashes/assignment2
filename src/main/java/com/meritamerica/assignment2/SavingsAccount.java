@@ -5,7 +5,7 @@ package com.meritamerica.assignment2;
 
 	public class SavingsAccount {
 		
-		private double currentBalance;
+		private double balance;
 		private double savingsValue;
 		private double interestRate = .01;
 		private long accountNumber;
@@ -13,15 +13,18 @@ package com.meritamerica.assignment2;
 		
 		//Constructor to initialize the objects
 		public SavingsAccount(double openingBalance) {
-			this.currentBalance = openingBalance;
+			this.balance = openingBalance;
+			this.accountNumber = MeritBank.getNextAccountNumber();
 		}
+		
+		//begin getters and setters
 		
 		public long getAccountNumber() {
 			return this.accountNumber;
 		}
 		
 		public double getBalance() { 
-			return this.currentBalance;
+			return this.balance;
 		}
 		
 		public double getInterestRate() {
@@ -35,13 +38,13 @@ package com.meritamerica.assignment2;
 		
 		//methods for withdrawing and depositing money into savings account
 		public boolean withdraw(double amount) {
-			if (this.currentBalance <= 0 || amount > this.currentBalance) {
+			if (this.balance <= 0 || amount > this.balance) {
 				System.out.println("Unable to make withdrawal. Not enough funds.");
 				return false;
 			}
 			else {
-				this.currentBalance = this.currentBalance - amount;
-				System.out.println("Withdrawing: " + amount + " from savings.  Your balance is now: " + this.currentBalance);
+				this.balance = this.balance - amount;
+				System.out.println("Withdrawing: " + amount + " from savings.  Your balance is now: " + this.balance);
 			}
 			return true;
 		}
@@ -52,8 +55,8 @@ package com.meritamerica.assignment2;
 				return false;
 			}
 			else {
-				this.currentBalance = this.currentBalance + amount;
-				System.out.println("Depositing: " + amount + " to savings. Your balance is now: " + this.currentBalance);
+				this.balance = this.balance + amount;
+				System.out.println("Depositing: " + amount + " to savings. Your balance is now: " + this.balance);
 			}
 			return true;
 		}
@@ -61,7 +64,7 @@ package com.meritamerica.assignment2;
 		
 		//formula to get the future value of savings with interest accrued
 		public double futureValue(int years) {
-			savingsValue = this.currentBalance * Math.pow((this.interestRate + 1), years);
+			savingsValue = this.balance * Math.pow((this.interestRate + 1), years);
 			return savingsValue;
 
 		}
@@ -72,7 +75,7 @@ package com.meritamerica.assignment2;
 			DecimalFormat df = new DecimalFormat("0.00");
 			DecimalFormat iformat = new DecimalFormat(".0000");
 			return (
-					"Savings Account Balance: " + df.format(this.currentBalance) + 
+					"Savings Account Balance: " + df.format(this.balance) + 
 					"\nSavings Account Interest Rate: " + iformat.format(this.interestRate) +  
 					"\nSavings Account Balance in 3 years: " + df.format(futureValue(3))
 					);

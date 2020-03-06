@@ -3,29 +3,27 @@ package com.meritamerica.assignment2;
 import java.util.Date;
 
 public class CDAccount {
-	private double currentBalance;
+	private double balance;
 	private double interestRate;
 	private int term;
 	private long accountNumber;
 	private Date startDate;
-	private double presentValue;
 
-	public CDAccount(CDOffering offering, double openingBalance) {
-		this.currentBalance = openingBalance;
+	public CDAccount(double balance, double interestRate, int term) {
+		this.balance = balance;
 		this.interestRate = interestRate;
 		this.term = term;
-		this.presentValue = presentValue;
-
 	}
-	
-	public CDAccount(CDOffering offering, double openingBalance, int term) {
-		this.currentBalance = openingBalance;
+	public CDAccount(CDOffering offering, double balance) {
+		this.balance = balance;
 		this.interestRate = offering.getInterestRate();
 		this.term = offering.getTerm();
+
 	}
 
+//getters
 	public double getBalance() {
-		return this.currentBalance;
+		return this.balance;
 	}
 
 	public double getInterestRate() {
@@ -36,19 +34,19 @@ public class CDAccount {
 		return this.term;
 
 	}
+	
+	public long getAccountNumber() {
+		return this.accountNumber;
+	}
 
 	public Date getStartDate() {
 		return this.startDate;
 
 	}
 	
-	public long getAccountNumber() {
-		return this.accountNumber;
-	}
-	
 	public double futureValue() {
 		double futureValue = (Math.pow(1 + this.interestRate, this.term));
-		futureValue *= currentBalance;
+		futureValue *= this.balance;
 		return futureValue;
 		
 	}

@@ -1,8 +1,5 @@
 package com.meritamerica.assignment2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * This program creates software for Merit Bank. Allows for the creation of an
  * Account Holder and for the creation of checking and savings accounts for the
@@ -36,6 +33,7 @@ public class AccountHolder {
 		
 		this.checkingAccountIndex = 0;
 		this.checkingAccounts = new CheckingAccount[1];
+		//this.checkingAccounts[0] = new CheckingAccount(checkingAccountOpeningBalance);
 		this.savingsAccountIndex = 0;
 		this.savingsAccounts = new SavingsAccount[1];
 		this.cdAccountIndex = 0;
@@ -46,11 +44,6 @@ public class AccountHolder {
 		CheckingAccount tempAccount = new CheckingAccount(openingBalance);
 		addCheckingAccount(tempAccount);
 	}
-//	public  CheckingAccount addCheckingAccount(double openingBalance) {
-//		CheckingAccount checkingAcc = new CheckingAccount(openingBalance);
-//		return checkingAcc;
-//		
-//	}
 	
 	public void addCheckingAccount(CheckingAccount checkingAccount) {
 		if(getCheckingBalance() + getSavingsBalance() >= 250000) {
@@ -201,7 +194,7 @@ public class AccountHolder {
 
 	}
 	
-	public double getCheckingBalance() { // iterate over array of checking accounts to find the sum of the array account
+	public double getCheckingBalance() { // iterate over array of checking accounts to find the total sum of the accounts
 		double chkAccSums = 0;
 		
 		for (int i = 0; i < this.checkingAccountIndex; i++) {

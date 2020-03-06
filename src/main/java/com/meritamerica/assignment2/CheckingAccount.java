@@ -6,40 +6,41 @@ package com.meritamerica.assignment2;
 	public class CheckingAccount  {
 		
 		private double checkingBalanceThreeYears;
-		private double currentBalance;
+		private double balance;
 		private  double interestRate = .0001;
 		private long accountNumber;
 
 		//Constructor to initialize the objects
 		public CheckingAccount( double openingBalance) {
-			this.currentBalance = openingBalance;
+			this.balance = openingBalance;
 			this.accountNumber = MeritBank.getNextAccountNumber();
 		}
 		
+		//getters and setters
 		public long getAccountNumber() {
 			return this.accountNumber;
 		}
 		
 		public double getBalance() {
-			return this.currentBalance;
+			return this.balance;
 		}
 		
 		
 		public double getInterestRate() {
-			return interestRate;
+			return this.interestRate;
 		}
 		
-		public void setInterestRate(double interestRate, int years) {
-			this.interestRate = interestRate;
-			
-		}
+//		public void setInterestRate(double interestRate, int years) {
+//			this.interestRate = interestRate;
+//			
+//		}
 		//Method and conditions for withdrawing money 
 		public boolean withdraw(double amount) {
-			if (this.currentBalance <= 0) {
+			if (this.balance <= 0) {
 				System.out.println("Unable to make withdrawal. Not enough funds.");
 				return false;
 			}
-			if (amount > this.currentBalance) {
+			if (amount > this.balance) {
 				System.out.println("Unable to make withdrawal. Not enough funds.");
 				return false;
 				
@@ -49,8 +50,8 @@ package com.meritamerica.assignment2;
 				return false;
 			}
 			else {
-				this.currentBalance =  this.currentBalance - amount;
-				System.out.println("Withdrawing: " + amount + " from checking. Your balance is now: " + currentBalance);
+				this.balance =  this.balance - amount;
+				System.out.println("Withdrawing: " + amount + " from checking. Your balance is now: " + balance);
 				
 			}
 			return true;
@@ -64,8 +65,8 @@ package com.meritamerica.assignment2;
 				return false;
 			} 
 			else {
-				this.currentBalance = this.currentBalance +  amount;
-				System.out.println("Depositing: " + amount + " to checking. Your balance is now: " + this.currentBalance);
+				this.balance = this.balance +  amount;
+				System.out.println("Depositing: " + amount + " to checking. Your balance is now: " + this.balance);
 			}
 				return true;
 		}
@@ -74,7 +75,7 @@ package com.meritamerica.assignment2;
 		//method to calculate future value of current balance in the checking account
 		public double futureValue(int years) {
 			//Formula: FV = PV(1 + interestRate) ^ years;
-			checkingBalanceThreeYears = this.currentBalance * Math.pow((this.interestRate + 1), years);
+			checkingBalanceThreeYears = this.balance * Math.pow((this.interestRate + 1), years);
 			return checkingBalanceThreeYears;
 
 			
@@ -85,7 +86,7 @@ package com.meritamerica.assignment2;
 			DecimalFormat df = new DecimalFormat("0.00"); //format the currency
 			DecimalFormat iformat = new DecimalFormat(".0000"); //format the interest rate
 			return (
-						"Checking Account Balance: " + df.format(this.currentBalance) + 
+						"Checking Account Balance: " + df.format(this.balance) + 
 					   "\nChecking Account Interest Rate: " + iformat.format(this.interestRate) +
 						"\nChecking Account Balance in 3 Years: " + df.format(futureValue(3))
 					   );
