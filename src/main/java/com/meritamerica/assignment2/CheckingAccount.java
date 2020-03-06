@@ -16,10 +16,6 @@ package com.meritamerica.assignment2;
 			this.accountNumber = MeritBank.getNextAccountNumber();
 		}
 		
-//		public long setAccountNumber() {
-//			this.accountNumber = (long)((Math.random() * Math.pow(10, 7)));
-//		}
-		
 		public long getAccountNumber() {
 			return this.accountNumber;
 		}

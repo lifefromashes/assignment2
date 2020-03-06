@@ -20,6 +20,8 @@ public class MeritAmericaBankApp {
 		ah1.addCheckingAccount(50000);
 		ah1.addSavingsAccount(500000);
 		
+		//verify last two not created
+		
 		
 		
 		
