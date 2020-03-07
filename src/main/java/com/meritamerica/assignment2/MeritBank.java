@@ -48,9 +48,9 @@ public class MeritBank {
 	}
 	
 	public static CDOffering getSecondBestCDOffering(double depositAmount) {
-		if(cdOfferings == null) {
-			return null;
-		}
+//		if(cdOfferings == null) {
+//			return null;
+//		}
 		CDOffering best = getBestCDOffering(depositAmount);
 		
 		double secondBestValue = 0;
